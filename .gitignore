@@ -1,0 +1,71 @@
+.env
+
+# Go
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+# Output of the go coverage tool
+*.coverprofile
+# Dependency directories
+/vendor/
+/bin/
+/pkg/
+# Go workspace
+go.work
+go.work.sum
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+crash.log
+.terraform/
+override.tf
+override.tf.json
+terraform.tfvars
+*.tfvars
+.terraform.lock.hcl
+
+# Shell (Bash)
+# History and local environment files
+.bash_history
+.bash_logout
+.bash_profile
+.bashrc
+# Backup and temporary files
+*~
+*.swp
+
+# PowerShell
+# PSReadLine history
+ConsoleHost_history.txt
+# PowerShell local profile
+Microsoft.PowerShell_profile.ps1
+
+# Docker
+# Compose override and env files
+docker-compose.override.yml
+docker-compose.override.*.yml
+.env
+**/.env
+docker-compose.*.local.yml
+
+# Docker-machine (local user dirs)
+/.docker/
+
+# Docker Compose
+# (keep compose files tracked but ignore local overrides above)
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+setup-local-sp.sh

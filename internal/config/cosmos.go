@@ -14,12 +14,12 @@ import (
 
 func NewCosmosContainerWithAzureCredential(
 	ctx context.Context,
-	endpoint, dbName, containerName string,
+	tenantId, clientId, clientSecret, endpoint, dbName, containerName string,
 ) (*azcosmos.ContainerClient, error) {
 	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
 	defer cancel()
 
-	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	cred, err := azidentity.NewClientSecretCredential(tenantId, clientId, clientSecret, nil)
 	if err != nil {
 		return nil, err
 	}

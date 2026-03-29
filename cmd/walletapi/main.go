@@ -1,10 +1,13 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 
 	"github.com/sowens81/go-wallet-microservice/internal/application/wallet"
 	"github.com/sowens81/go-wallet-microservice/internal/config"
@@ -22,12 +25,21 @@ func getEnv(key string) string {
 }
 
 func main() {
-	// ---- Cosmos setup ----
-	container, err := config.NewCosmosContainerWithAzureCredential(
-		getEnv("COSMOS_ENDPOINT"),
-		getEnv("COSMOS_DB"),
-		getEnv("COSMOS_CONTAINER"),
-	)
+	// load .env when present (ignore in production)
+	// load local .env for development (ignored in prod)
+	_ = godotenv.Load()
+
+	endpoint := os.Getenv("COSMOS_ENDPOINT")
+	db := os.Getenv("COSMOS_DB")
+	containerName := os.Getenv("COSMOS_CONTAINER")
+	tenantId := os.Getenv("AZURE_TENANT_ID")
+	clientId := os.Getenv("AZURE_CLIENT_ID")
+	clientSecret := os.Getenv("AZURE_CLIENT_SECRET")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	container, err := config.NewCosmosContainerWithAzureCredential(ctx, tenantId, clientId, clientSecret, endpoint, db, containerName)
 	if err != nil {
 		log.Fatal(err)
 	}
